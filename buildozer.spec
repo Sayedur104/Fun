@@ -18,6 +18,9 @@ source.include_exts = py,png,jpg,kv,atlas,gif
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
 
+# Specify the Android SDK version you are targeting
+android.sdk = 30
+
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
 
