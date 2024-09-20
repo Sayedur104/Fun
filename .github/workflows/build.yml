@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      # Update checkout and cache actions to v3
+      - uses: actions/checkout@v3
 
       # Used to cache dependencies with a timeout
       - name: Get Date
@@ -17,12 +18,12 @@ jobs:
         shell: bash
 
       - name: Cache Buildozer global directory
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .buildozer_global
           key: buildozer-global-${{ hashFiles('buildozer.spec') }}
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: .buildozer
           key: ${{ runner.os }}-${{ env.date }}-${{ hashFiles('buildozer.spec') }}
@@ -39,3 +40,8 @@ jobs:
         with:
           name: package
           path: .buildozer/android/platform/build/dists/<your-app>/bin/*.apk
+
+      # Remove the extra git config to avoid warnings
+      - name: Remove git extraheader
+        run: |
+          git config --global --unset-all http.https://github.com/.extraheader || true
